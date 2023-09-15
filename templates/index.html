@@ -52,7 +52,7 @@
                 <form>
                     <div class="form-group mb-3">
                         <textarea id="transcription-box" class="form-control" rows="3"
-                            placeholder="Type a question or press record."></textarea>
+                            placeholder="Hold down the record button to speak, release to send message"></textarea>
                     </div>
                     <div class="form-group d-flex justify-content-center">
                         <button type="button" class="btn btn-danger large-round-button"
@@ -81,57 +81,6 @@
             // Helper methods
             const disableButton = (btn) => { btn.addClass("loading").prop("disabled", true); }
             const enableButton = (btn) => { btn.removeClass("loading").prop("disabled", false); }
-
-            // Initialize TypeIt
-            new TypeIt("#response-text", {
-                strings: "Hold down the button while speaking, release when you are done.",
-                speed: 40,
-                waitUntilVisible: true,
-                cursorChar: "▊",
-            }).go();
-
-            // Ask question and play audio when ask button is clicked
-            askButton.click(() => {
-                disableButton(recordButton);
-                disableButton(askButton);
-                askButton[0].innerHTML = "Thinking...";
-                conversation.push({ role: "user", "content": transcriptionBox.val() })
-                const textData = { conversation: conversation };
-                $.ajax({
-                    type: 'POST',
-                    url: '/ask',
-                    data: JSON.stringify(textData),
-                    contentType: 'application/json',
-                    success: (data) => {
-                        const fileURL = data.audio;
-                        $("#response-text")[0].innerHTML = "";
-                        conversation.push({ role: "assistant", "content": data.text })
-                        new TypeIt("#response-text", {
-                            strings: data.text,
-                            speed: 39,
-                            waitUntilVisible: false,
-                            cursorChar: "▊",
-                        }).go();
-                        // Change the image to the animated GIF when the voice-over starts
-                        $("#jollybeard-img").attr("src", "/static/looper.gif");
-                        // $("#jollybeard-img").css("height", "312.5px");  // 250px * 1.25 = 312.5px
-
-                        audioElement.src = fileURL;
-                        audioElement.controls = true;
-                        audioElement.play();
-                        // Add an event listener to change the image back to static when the voice-over ends
-                        audioElement.onended = function () {
-                            audioElement.pause();
-                            audioElement.currentTime = 0;
-                            $("#jollybeard-img").attr("src", "/static/sonic.png");
-                        };
-
-                        enableButton(recordButton);
-                        enableButton(askButton);
-                        askButton[0].innerHTML = "Ask";
-                    }
-                });
-            });
 
             navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
                 mediaRecorder = new MediaRecorder(stream);
@@ -251,16 +200,7 @@
             const disableButton = (btn) => { btn.addClass("loading").prop("disabled", true); }
             const enableButton = (btn) => { btn.removeClass("loading").prop("disabled", false); }
 
-            // Initialize TypeIt
-            new TypeIt("#response-text", {
-                strings: "Hold down the button while speaking, release when you are done.",
-                speed: 40,
-                waitUntilVisible: true,
-                cursorChar: "▊",
-            }).go();
-
-    
-        // Encapsulate the audio playback into its own function
+         // Encapsulate the audio playback into its own function
         function playAudio(fileURL) {
             audioElement.src = fileURL;
             audioElement.controls = true;
@@ -288,39 +228,7 @@
                 }
             });
         }
-    
-        // Function to ask question and play audio
-        function askQuestionAndPlayAudio() {
-            disableButton(recordButton);
-            recordButton[0].innerHTML = "Thinking...";
-            conversation.push({ role: "user", "content": transcriptionBox.val() });
-            const textData = { conversation: conversation };
-            $.ajax({
-                type: 'POST',
-                url: '/ask',
-                data: JSON.stringify(textData),
-                contentType: 'application/json',
-                success: (data) => {
-                    const fileURL = data.audio;
-                    $("#response-text")[0].innerHTML = "";
-                    conversation.push({ role: "assistant", "content": data.text });
-    
-                    new TypeIt("#response-text", {
-                        strings: data.text,
-                        speed: 39,
-                        waitUntilVisible: false,
-                        cursorChar: "▊",
-                    }).go();
-    
-                    $("#jollybeard-img").attr("src", "/static/looper.gif");
-                    playAudio(fileURL);  // Directly call the encapsulated playAudio function
-    
-                    enableButton(recordButton);
-                    recordButton[0].innerHTML = "Record";
-                }
-            });
-        }
-    
+        
         // Record audio when record button is pressed and held (desktop)
         recordButton.on('mousedown', startRecording);
     

@@ -167,3 +167,5 @@ outputs/*
 # But not the folder itself
 !uploads/.gitignore
 !outputs/.gitignore
+
+temp*
