@@ -169,3 +169,5 @@ outputs/*
 !outputs/.gitignore
 
 temp*.html
+
+.DS_Store

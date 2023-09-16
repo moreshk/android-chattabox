@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container mt-5 text-center">
         <h1 class="mb-5">Select your character</h1>
@@ -21,32 +23,53 @@
                 <img class="character-img" src="/static/penny.png" alt="penny" onclick="selectCharacter('Penny')">
             </div>
             <div class="col-12 mb-5 text-center">
-                <img class="character-img" src="/static/eric.png" alt="Eric" onclick="selectCharacter('Eric')">
+                <img class="character-img" src="/static/eric.png" alt="eric" onclick="selectCharacter('Eric')">
             </div>
             <div class="col-12 mb-5 text-center">
-                <img class="character-img" src="/static/pirate-boy.png" alt="pirate-boy" onclick="selectCharacter('pirate-boy')">
+                <img class="character-img" src="/static/pirate-boy.png" alt="pirate-boy"
+                    onclick="selectCharacter('pirate-boy')">
             </div>
             <div class="col-12 mb-5 text-center">
-                <img class="character-img" src="/static/pirate-girl.png" alt="pirate-girl" onclick="selectCharacter('pirate-girl')">
+                <img class="character-img" src="/static/pirate-girl.png" alt="pirate-girl"
+                    onclick="selectCharacter('pirate-girl')">
             </div>
             <div class="col-12 mb-5 text-center">
-                <img class="character-img" src="/static/sonic.png" alt="Sonic" onclick="selectCharacter('Sonic')">
+                <img class="character-img" src="/static/sonic.png" alt="sonic" onclick="selectCharacter('Sonic')">
             </div>
             <div class="col-12 mb-5 text-center">
-                <img class="character-img" src="/static/bookworm.png" alt="Bookworm" onclick="selectCharacter('Bookworm')">
+                <img class="character-img" src="/static/bookworm.png" alt="bookworm"
+                    onclick="selectCharacter('Bookworm')">
             </div>
         </div>
     </div>
-    
-    
+
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
+        // function selectCharacter(character) {
+        //     $.post('/set-character', { character_name: character }, function() {
+        //         window.location.href = '/';
+        //     });
+        // }
         function selectCharacter(character) {
-            $.post('/set-character', { character_name: character }, function() {
+            const voiceIds = {
+                'penny': 'd6h9rMX5IpAR9ZrWOmjm',
+                'eric': 'P7igz6QOJ1M3ox5nSaHv',
+                'pirate-boy':'BKlVt2XsQVXct6DX3z4d',
+                'pirate-girl': 'UsbTp18WLaRmauNA3Hnn',
+                'sonic': 'B0sDakOCRhhcSbDc0U2d',
+                'bookworm': '41Zt72AmIqyFy77mLmsn'
+                // ... other characters
+            };
+            const voiceId = voiceIds[character.toLowerCase()] || 'default_voice_id';
+
+            // const voiceId = voiceIds[character] || 'default_voice_id';
+            $.post('/set-character', { character_name: character.toLowerCase(), voice_id: voiceId }, function () {
                 window.location.href = '/';
             });
         }
     </script>
 </body>
+
 </html>

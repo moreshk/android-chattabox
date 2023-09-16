@@ -156,7 +156,9 @@
                             cursorChar: "▊",
                         }).go();
 
-                        const character = '{{ session["selected_character"] }}' || 'Sonic';  // Fetch from session
+                        // const character = '{{ session["selected_character"] }}' || 'Sonic';  // Fetch from session
+                        const character = '{{ session["selected_character"] | lower }}' || 'sonic';
+
                         const characterLower = character.toLowerCase();
 
                         // Change the image to the animated GIF when the voice-over starts
@@ -179,7 +181,9 @@
             }
 
             // Set the character image dynamically
-            const character = '{{ session["selected_character"] }}' || 'Sonic';  // Fetch from session
+            // const character = '{{ session["selected_character"] }}' || 'Sonic';  // Fetch from session
+            const character = '{{ session["selected_character"] | lower }}' || 'sonic';
+
             const characterLower = character.toLowerCase(); // Convert to lowercase for file name
             $('#character-img').attr('src', `/static/${characterLower}.png`);  // Set the character image based on the session value
 

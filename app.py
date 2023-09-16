@@ -98,7 +98,8 @@ def generate_audio(text: str, output_path: str = "") -> str:
     :returns: The output path for the successfully saved file.
     :rtype: str
     """
-    voice_id = "B0sDakOCRhhcSbDc0U2d"
+    # voice_id = "B0sDakOCRhhcSbDc0U2d"
+    voice_id = session.get('selected_voice_id', 'default_voice_id')
 
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
     headers = {
@@ -168,11 +169,19 @@ def select_character():
     """Render the character selection page."""
     return render_template('select_character.html')
 
+# @app.route('/set-character', methods=['POST'])
+# def set_character():
+#     selected_character = request.form['character_name']
+#     session['selected_character'] = selected_character
+#     return redirect(url_for('index'))
+
 @app.route('/set-character', methods=['POST'])
 def set_character():
-    selected_character = request.form['character_name']
-    session['selected_character'] = selected_character
-    return redirect(url_for('index'))
+    character_name = request.form.get('character_name')
+    voice_id = request.form.get('voice_id')
+    session['selected_character'] = character_name
+    session['selected_voice_id'] = voice_id
+    return jsonify(success=True)
 
 
 @app.route('/ask', methods=['POST'])
