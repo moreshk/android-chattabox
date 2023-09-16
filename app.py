@@ -23,6 +23,7 @@ ELEVENLABS_VOICE_NAME = "Raj"
 # ELEVENLABS_ALL_VOICES = []
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
 def get_voices() -> list:
     """Fetch the list of available ElevenLabs voices.
@@ -117,10 +118,10 @@ def generate_audio(text: str, output_path: str = "") -> str:
     return output_path
 
 
-@app.route('/')
-def index():
-    """Render the index page."""
-    return render_template('index.html', voice=ELEVENLABS_VOICE_NAME)
+# @app.route('/')
+# def index():
+#     """Render the index page."""
+#     return render_template('index.html', voice=ELEVENLABS_VOICE_NAME)
 
 
 @app.route('/transcribe', methods=['POST'])
@@ -151,6 +152,28 @@ def clean_output_dir(directory: str):
             os.remove(file)
         except OSError as e:
             print(f"Error: {file} : {e.strerror}")
+
+from flask import session, redirect, url_for
+
+# app.py
+@app.route('/')
+def index():
+    selected_character = session.get('selected_character', None)
+    if selected_character is None:
+        return redirect(url_for('select_character'))
+    return render_template('index.html', voice=ELEVENLABS_VOICE_NAME, selected_character=selected_character)
+
+@app.route('/select-character')
+def select_character():
+    """Render the character selection page."""
+    return render_template('select_character.html')
+
+@app.route('/set-character', methods=['POST'])
+def set_character():
+    selected_character = request.form['character_name']
+    session['selected_character'] = selected_character
+    return redirect(url_for('index'))
+
 
 @app.route('/ask', methods=['POST'])
 def ask():

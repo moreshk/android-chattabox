@@ -12,6 +12,7 @@
             margin-bottom: 40px;
             display: none;
         }
+
         .large-round-button {
             border-radius: 50%;
             width: 125px;
@@ -22,6 +23,7 @@
             line-height: 80px;
             margin: 10px;
         }
+
         .response {
             margin-bottom: 40px;
         }
@@ -42,7 +44,8 @@
                             placeholder="Hold down the record button to speak, release to send message"></textarea>
                     </div>
                     <div class="form-group d-flex justify-content-center">
-                        <button type="button" class="btn btn-danger large-round-button" id="record-button">Record</button>
+                        <button type="button" class="btn btn-danger large-round-button"
+                            id="record-button">Record</button>
                     </div>
                 </form>
                 <div class="audio-player">
@@ -125,6 +128,47 @@
             // ... rest of the code
 
             // Function to ask question and play audio
+            // function askQuestionAndPlayAudio() {
+            //     disableButton(recordButton);
+            //     recordButton[0].innerHTML = "Thinking...";
+            //     conversation.push({ role: "user", "content": transcriptionBox.val() })
+            //     const textData = { conversation: conversation };
+            //     $.ajax({
+            //         type: 'POST',
+            //         url: '/ask',
+            //         data: JSON.stringify(textData),
+            //         contentType: 'application/json',
+            //         success: (data) => {
+            //             const fileURL = data.audio;
+            //             $("#response-text")[0].innerHTML = "";
+            //             conversation.push({ role: "assistant", "content": data.text })
+            //             new TypeIt("#response-text", {
+            //                 strings: data.text,
+            //                 speed: 39,
+            //                 waitUntilVisible: false,
+            //                 cursorChar: "▊",
+            //             }).go();
+            //             // Change the image to the animated GIF when the voice-over starts
+            //             $("#character-img").attr("src", "/static/sonic.gif");
+            //             // $("#character-img").css("height", "312.5px");  // 250px * 1.25 = 312.5px
+
+            //             audioElement.src = fileURL;
+            //             audioElement.controls = true;
+            //             audioElement.play();
+            //             // Add an event listener to change the image back to static when the voice-over ends
+            //             audioElement.onended = function () {
+            //                 audioElement.pause();
+            //                 audioElement.currentTime = 0;
+            //                 $("#character-img").attr("src", "/static/sonic.png");
+            //             };
+
+            //             enableButton(recordButton);
+            //             recordButton[0].innerHTML = "Record";
+            //         }
+            //     });
+            // }
+
+            // Function to ask question and play audio
             function askQuestionAndPlayAudio() {
                 disableButton(recordButton);
                 recordButton[0].innerHTML = "Thinking...";
@@ -145,9 +189,12 @@
                             waitUntilVisible: false,
                             cursorChar: "▊",
                         }).go();
+
+                        const character = '{{ session["selected_character"] }}' || 'Sonic';  // Fetch from session
+                        const characterLower = character.toLowerCase();
+
                         // Change the image to the animated GIF when the voice-over starts
-                        $("#character-img").attr("src", "/static/sonic.gif");
-                        // $("#character-img").css("height", "312.5px");  // 250px * 1.25 = 312.5px
+                        $("#character-img").attr("src", `/static/${characterLower}.gif`);
 
                         audioElement.src = fileURL;
                         audioElement.controls = true;
@@ -156,7 +203,7 @@
                         audioElement.onended = function () {
                             audioElement.pause();
                             audioElement.currentTime = 0;
-                            $("#character-img").attr("src", "/static/sonic.png");
+                            $("#character-img").attr("src", `/static/${characterLower}.png`); // Restore original character image
                         };
 
                         enableButton(recordButton);
@@ -164,6 +211,16 @@
                     }
                 });
             }
+
+            // Set the character image dynamically
+            const character = '{{ session["selected_character"] }}' || 'Sonic';  // Fetch from session
+            const characterLower = character.toLowerCase(); // Convert to lowercase for file name
+            $('#character-img').attr('src', `/static/${characterLower}.png`);  // Set the character image based on the session value
+            
+            // Set the character image dynamically
+            // const character = '{{ session["selected_character"] }}' || 'Sonic';
+            // $('#character-img').attr('src', `/static/${character.toLowerCase()}.png`);
+
         });
     </script>
 
