@@ -38,7 +38,9 @@
     <div class="container text-center mt-5">
         <div class="row">
             <div class="col-12 col-md-6 col-xl-4 mx-auto">
-                <img id="character-img" class="mb-3" src="/static/sonic.png" alt="" style="height:250px">
+                <!-- <img id="character-img" class="mb-3" src="/static/sonic.png" alt="" style="height:250px"> -->
+                <img id="character-img" class="mb-3" src="{{ url_for('static', filename=session['selected_character'] | default('sonic', true) + '.png') }}" alt="" style="height:250px">
+
                 <h1 class="mb-4">Sonic the Hedgehog</h1>
                 <form>
                     <div class="form-group mb-3">
