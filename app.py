@@ -97,14 +97,6 @@ def generate_audio(text: str, output_path: str = "") -> str:
     :returns: The output path for the successfully saved file.
     :rtype: str
     """
-    # voices = ELEVENLABS_ALL_VOICES
-    # try:
-    #     voice_id = next(filter(lambda v: v["name"] == ELEVENLABS_VOICE_NAME, voices))["voice_id"]
-    # except StopIteration:
-    #     voice_id = voices[0]["voice_id"]
-    #     voice_id = "B0sDakOCRhhcSbDc0U2d"
-    #     # voice_id = "wW6Wydk4CWSgIsxSzHGq"
-
     voice_id = "B0sDakOCRhhcSbDc0U2d"
 
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
@@ -181,12 +173,6 @@ def listen(filename):
     """Return the audio file located at the given filename."""
     return send_file(f"outputs/{filename}", mimetype="audio/mp3", as_attachment=False)
 
-
-# if ELEVENLABS_API_KEY:
-#     if not ELEVENLABS_ALL_VOICES:
-#         ELEVENLABS_ALL_VOICES = get_voices()
-#     if not ELEVENLABS_VOICE_NAME:
-#         ELEVENLABS_VOICE_NAME = ELEVENLABS_ALL_VOICES[0]["name"]
 
 if __name__ == '__main__':
     app.run()
