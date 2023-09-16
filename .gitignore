@@ -168,4 +168,4 @@ outputs/*
 !uploads/.gitignore
 !outputs/.gitignore
 
-temp*
+temp*.html
