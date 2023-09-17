@@ -31,7 +31,7 @@
 }
 
 .container {
-    margin-top: 150px;
+    margin-top: 400px;
     /* Adjust this based on the size of the image and desired spacing */
 }
 
@@ -42,13 +42,14 @@
 
 #fixed-elements {
     position: fixed;
-    bottom: 100px;
+    bottom: 0px; /* Adjust this value to push the elements downwards */
     left: 50%; /* Center the element horizontally */
     transform: translateX(-50%); /* Required for centering */
     max-width: 70%; /* Make it the same as the chat bubble */
     background-color: white;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0); /* Again, adjust transparency as needed */
+    padding-top: 20px; /* Add this property to reduce the space above the image */
 }
 
 #chat-bubble {
@@ -69,3 +70,10 @@ body {
     display: none;
   }
   
+#character-img {
+    margin-bottom: 0px; /* Adjust this value to reduce the space below the image */
+}
+
+#record-button {
+    margin-top: 0px; /* Adjust this value to reduce the space above the button */
+}
