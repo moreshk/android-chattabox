@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,18 +9,33 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Select Character</title>
     <style>
+        body {
+            background-image: url("/static/bg-select-character.png");
+            background-size: auto;
+            background-repeat: repeat-y;
+            background-attachment: fixed;
+            background-position: center top;
+        }
         .character-img {
             width: 200px;
             height: auto;
             cursor: pointer;
+        }
+        .banner-img {
+            width: 70%;
+            height: auto;
+            margin-bottom: 50px;
         }
     </style>
 </head>
 
 <body>
     <div class="container mt-5 text-center">
-        <h1 class="mb-5">Select your character</h1>
+        <img src="/static/chattabox.png" class="banner-img" alt="Chattabox">
+        <img src="/static/choose-buddy.png" class="banner-img" alt="Choose Buddy">
+        <div class="clearfix"></div>
         <div class="row justify-content-center">
+            <!-- Your character images go here, e.g. -->
             <div class="col-12 mb-5 text-center">
                 <img class="character-img" src="/static/penny.png" alt="penny" onclick="selectCharacter('Penny')">
             </div>
@@ -43,33 +60,7 @@
         </div>
     </div>
 
-
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-        // function selectCharacter(character) {
-        //     $.post('/set-character', { character_name: character }, function() {
-        //         window.location.href = '/';
-        //     });
-        // }
-        function selectCharacter(character) {
-            const voiceIds = {
-                'penny': 'd6h9rMX5IpAR9ZrWOmjm',
-                'eric': 'P7igz6QOJ1M3ox5nSaHv',
-                'pirate-boy':'BKlVt2XsQVXct6DX3z4d',
-                'pirate-girl': 'UsbTp18WLaRmauNA3Hnn',
-                'sonic': 'B0sDakOCRhhcSbDc0U2d',
-                'bookworm': '41Zt72AmIqyFy77mLmsn'
-                // ... other characters
-            };
-            const voiceId = voiceIds[character.toLowerCase()] || 'default_voice_id';
-
-            // const voiceId = voiceIds[character] || 'default_voice_id';
-            $.post('/set-character', { character_name: character.toLowerCase(), voice_id: voiceId }, function () {
-                window.location.href = '/';
-            });
-        }
-    </script>
+    <!-- Your existing script code -->
 </body>
 
 </html>
