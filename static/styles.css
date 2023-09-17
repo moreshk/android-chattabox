@@ -77,3 +77,14 @@ body {
 #record-button {
     margin-top: 0px; /* Adjust this value to reduce the space above the button */
 }
+
+
+#character-long-name {
+    margin-top: 40px;  /* Increase this based on how far down you want to push the character name */
+}
+
+#chat-bubble {
+    margin-top: 60px;  /* Increase this based on how far down you want to push the chat bubble */
+    margin-bottom: 10px;
+    background-color: rgba(249, 249, 249, 0.5);
+}
