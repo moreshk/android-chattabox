@@ -207,6 +207,12 @@
 
         });
     </script>
+    <script>
+    $(document).ready(() => {
+        const character = '{{ session["selected_character"] | lower }}' || 'sonic';
+        $("body").css("background-image", `url('/static/bg-${character}.png')`);
+    });
+</script>
 
 </body>
 
