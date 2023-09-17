@@ -194,7 +194,20 @@ def select_character():
 def set_character():
     character_name = request.form.get('character_name')
     voice_id = request.form.get('voice_id')
+
+    # Define a dictionary to map short names to long names
+    character_long_names = {
+        'penny': 'Penny the Princess',
+        'eric': 'Eric the Explorer',
+        'pirate-boy':'JollyBeard the Pirate',
+        'pirate-girl': 'Piper the girl Pirate',
+        'sonic': 'Sonic the Hedgehog',
+        'bookworm': 'Bookworm'
+    }
+
+
     session['selected_character'] = character_name
+    session['selected_character_long'] = character_long_names.get(character_name, character_name)
     session['selected_voice_id'] = voice_id
     return jsonify(success=True)
 
