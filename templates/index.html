@@ -13,6 +13,15 @@
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
+    <!-- <style>
+        #fixed-elements {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: white; /* Optional: add background color */
+            z-index: 1; /* Optional: to make sure the fixed section appears above other elements */
+        }
+    </style> -->
 </head>
 
 <body>
@@ -21,37 +30,42 @@
             <div class="col-12 col-md-6 col-xl-4 mx-auto">
                 <!-- Chat Bubble -->
                 <div id="chat-bubble"
-                    style="width: fit-content; max-width: 70%; padding: 10px 20px; margin: 30px auto 10px auto; position: relative; background-color: #f9f9f9; border: 3px solid #333; border-radius: 50px; font-size: 18px; line-height: 1.4; text-align: center; bottom: 0;">
+                    style="width: fit-content; max-width: 70%; padding: 10px 20px; margin: 10px auto 10px auto; position: relative; background-color: #f9f9f9; border: 3px solid #333; border-radius: 50px; font-size: 18px; line-height: 1.4; text-align: center; bottom: 0;">
                     <p id="bot-response-text" class="mb-0" style="margin-bottom: 0;">Hello, ask me anything!</p>
                     <div
                         style="content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 0; border: 20px solid transparent; border-top-color: #f9f9f9; border-bottom: 0; border-left: 0; margin-left: -10px; margin-bottom: -20px;">
                     </div>
                 </div>
+                <div id="fixed-elements">
 
-                <img id="character-img" class="mb-3"
-                    src="{{ url_for('static', filename=session['selected_character'] | default('sonic', true) + '.png') }}"
-                    alt="" style="height:250px">
+                    <img id="character-img" class="mb-3"
+                        src="{{ url_for('static', filename=session['selected_character'] | default('sonic', true) + '.png') }}"
+                        alt="" style="height:250px">
 
-                <!-- <h1 class="mb-4">Sonic the Hedgehog</h1> -->
-                <h1 class="mb-4" id="character-long-name">{{ session['selected_character_long'] | default('Sonic the
-                    Hedgehog', true) }}</h1>
-                <form>
-                    <div class="form-group mb-3">
-                        <textarea id="transcription-box" class="form-control" rows="3"
-                            placeholder="Hold down the record button to speak, release to send message"></textarea>
+                    <!-- <h1 class="mb-4">Sonic the Hedgehog</h1> -->
+                    <h1 class="mb-4" id="character-long-name">{{ session['selected_character_long'] | default('Sonic the
+                        Hedgehog', true) }}</h1>
+
+                    <form>
+                        <div class="form-group mb-3">
+                            <textarea id="transcription-box" class="form-control" rows="3"
+                                placeholder="Hold down the record button to speak, release to send message"></textarea>
+                        </div>
+
+                        <button type="button" class="btn btn-danger large-round-button" id="record-button">
+                            <img id="record-icon" src="/static/record.png" alt="Record"
+                                style="width:100%; height:auto;">
+                        </button>
+                        <div id="status-text"></div>
+
+                    </form>
+
+                    <div class="audio-player">
+                        <audio id="audio-element"></audio>
                     </div>
-
-                    <button type="button" class="btn btn-danger large-round-button" id="record-button">
-                        <img id="record-icon" src="/static/record.png" alt="Record" style="width:100%; height:auto;">
-                    </button>
-                    <div id="status-text"></div>
-
-                </form>
-                <div class="audio-player">
-                    <audio id="audio-element"></audio>
-                </div>
-                <div class="response">
-                    <p id="response-text"></p>
+                    <div class="response">
+                        <p id="response-text"></p>
+                    </div>
                 </div>
             </div>
         </div>
