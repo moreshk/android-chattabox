@@ -47,6 +47,11 @@
             margin-top: 300px;
             /* Adjust this based on the size of the image and desired spacing */
         }
+
+        #record-button.btn.btn-danger {
+            background-color: transparent !important;
+            border: none !important;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
@@ -81,10 +86,15 @@
                         <textarea id="transcription-box" class="form-control" rows="3"
                             placeholder="Hold down the record button to speak, release to send message"></textarea>
                     </div>
-                    <div class="form-group d-flex justify-content-center">
+                    <!-- <div class="form-group d-flex justify-content-center">
                         <button type="button" class="btn btn-danger large-round-button"
                             id="record-button">Record</button>
-                    </div>
+                    </div> -->
+                    <button type="button" class="btn btn-danger large-round-button" id="record-button">
+                        <img id="record-icon" src="/static/record.png" alt="Record" style="width:100%; height:auto;">
+                    </button>
+                    <div id="status-text"></div>
+
                 </form>
                 <div class="audio-player">
                     <audio id="audio-element"></audio>
@@ -108,8 +118,14 @@
             const audioElement = $('#audio-element')[0];
             const conversation = [];
 
-            const disableButton = (btn) => { btn.addClass("loading").prop("disabled", true); }
-            const enableButton = (btn) => { btn.removeClass("loading").prop("disabled", false); }
+            const disableButton = (btn) => {
+                btn.addClass("loading").prop("disabled", true);
+                $('#status-text').text('Transcribing...'); $('#status-text').text('Transcribing...');
+            }
+            const enableButton = (btn) => {
+                btn.removeClass("loading").prop("disabled", false);
+                $('#status-text').text('');
+            }
 
             navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
                 mediaRecorder = new MediaRecorder(stream);
@@ -118,7 +134,7 @@
                 };
                 mediaRecorder.onstop = () => {
                     disableButton(recordButton);
-                    recordButton[0].innerHTML = "Transcribing...";
+                    // recordButton[0].innerHTML = "Transcribing...";
                     const audioData = new Blob(chunks, { type: 'audio/wav' });
                     const formData = new FormData();
                     formData.append('file', audioData, 'audio.wav');
@@ -131,22 +147,36 @@
                         success: (data) => {
                             transcriptionBox.val(data.text);
                             enableButton(recordButton);
-                            recordButton[0].innerHTML = "Record";
+                            // recordButton[0].innerHTML = "Record";
+                            $('#status-text').text('');
                             askQuestionAndPlayAudio(); // Trigger the functionality
                         }
                     });
                 };
             });
 
+            // // Helper function to handle the start of the recording
+            // function startRecording() {
+            //     recordButton[0].innerHTML = "Recording...";
+            //     chunks = [];
+            //     mediaRecorder.start();
+            // }
+
+            // // Helper function to handle the end of the recording
+            // function stopRecording() {
+            //     mediaRecorder.stop();
+            // }
+
             // Helper function to handle the start of the recording
             function startRecording() {
-                recordButton[0].innerHTML = "Recording...";
+                $("#record-icon").attr("src", "/static/record_pressed.png"); // Change to the "pressed" icon
                 chunks = [];
                 mediaRecorder.start();
             }
 
             // Helper function to handle the end of the recording
             function stopRecording() {
+                $("#record-icon").attr("src", "/static/record.png"); // Change back to the original icon
                 mediaRecorder.stop();
             }
 
@@ -171,7 +201,8 @@
             // Function to ask question and play audio
             function askQuestionAndPlayAudio() {
                 disableButton(recordButton);
-                recordButton[0].innerHTML = "Thinking...";
+                $('#status-text').text('Thinking...');
+                // recordButton[0].innerHTML = "Thinking...";
                 conversation.push({ role: "user", "content": transcriptionBox.val() })
                 const textData = { conversation: conversation };
                 $.ajax({
@@ -210,7 +241,8 @@
                         };
 
                         enableButton(recordButton);
-                        recordButton[0].innerHTML = "Record";
+                        // recordButton[0].innerHTML = "Record";
+                        $('#status-text').text('');
                     }
                 });
             }
