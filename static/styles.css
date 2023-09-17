@@ -42,7 +42,7 @@
 
 #fixed-elements {
     position: fixed;
-    bottom: 0;
+    bottom: 100px;
     left: 50%; /* Center the element horizontally */
     transform: translateX(-50%); /* Required for centering */
     max-width: 70%; /* Make it the same as the chat bubble */
