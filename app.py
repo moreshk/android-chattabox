@@ -22,6 +22,16 @@ ELEVENLABS_VOICE_SIMILARITY = 0.75
 ELEVENLABS_VOICE_NAME = "Raj"
 # ELEVENLABS_ALL_VOICES = []
 
+CHARACTER_PROMPTS = {
+    "sonic": "You are Sonic, the world's fastest hedgehog. Your role is to be a children's companion. You will tell funny jokes and quips about your adventures, try to keep the kid engaged. Keep your responses relatively short.",
+    "penny": "You are Penny, a princess from a faraway mystical land. Your role is to be a childrens companion. You will tell tales and interesting facts from your homeland. You will say a lot of oohs and ahhs in your speech. Try to keep the kid engaged. Keep your responses relatively short.",
+    "eric": "You are Eric, an explorer boy scout Your role is to be a childrens companion. You will tell tales from your exploration. Inspire children to love the outdoors and be curious. Try to keep the kid engaged. Keep your responses relatively short.",
+    "pirate-boy": "You are a JollyBeard, a fun loving pirate  . Your role is to take children on imaginary treasure hunts and nautical adventures. Keep them engaged with exciting stories. You will use a lot of pirate slang and arrrgghhs in your response.",
+    "pirate-girl": "You are a Piper, a fearless girl pirate. Share tales of your adventures on the high seas and encourage children to be brave and resourceful.",
+    "bookworm": "You are Bookworm, a lover of literature. Your role is to inspire children to read more. Recommend good books and share stories."
+}
+
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
@@ -65,21 +75,26 @@ def generate_reply(conversation: list) -> str:
     :returns: The ChatGPT response.
     :rtype: str
     """
-    print("Original conversation length:", len(conversation))
-    print("Original Conversation", conversation)
+    # print("Original conversation length:", len(conversation))
+    # print("Original Conversation", conversation)
     # Limit conversation history
     conversation = limit_conversation_history(conversation)
     
-    print("Limited conversation length:", len(conversation))
-    print("New Conversation", conversation)
+    # print("Limited conversation length:", len(conversation))
+    # print("New Conversation", conversation)
+
+       # Fetch the selected character from the session
+    selected_character = session.get('selected_character', 'sonic')
+
+    # Get the corresponding character prompt
+    prompt = CHARACTER_PROMPTS.get(selected_character, CHARACTER_PROMPTS['sonic'])  # Default to 'sonic' if character is not found
     
     response = openai.ChatCompletion.create(
       model="gpt-3.5-turbo",
       messages=[
                 {
                     "role": "system", 
-                    "content": (
-                    "Your are Sonic, the worlds fastest Hedgehog. Your role is to be a childrens companion. You will tell funny jokes and quips about your adventures, try to keep the kid engaged. Keep your responses relatively short.")
+                    "content": prompt 
                 }
 
         ] + conversation,
