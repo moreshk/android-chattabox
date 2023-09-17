@@ -28,10 +28,6 @@
                     </div>
                 </div>
 
-                <!-- <img id="character-img" class="mb-3"
-                    src="{{ url_for('static', filename=session['selected_character'] | default('sonic', true) + '.png') }}"
-                    alt="" style="height:250px"> -->
-
                 <img id="character-img" class="mb-3"
                     src="{{ url_for('static', filename=session['selected_character'] | default('sonic', true) + '.png') }}"
                     alt="" style="height:250px">
@@ -44,10 +40,7 @@
                         <textarea id="transcription-box" class="form-control" rows="3"
                             placeholder="Hold down the record button to speak, release to send message"></textarea>
                     </div>
-                    <!-- <div class="form-group d-flex justify-content-center">
-                        <button type="button" class="btn btn-danger large-round-button"
-                            id="record-button">Record</button>
-                    </div> -->
+
                     <button type="button" class="btn btn-danger large-round-button" id="record-button">
                         <img id="record-icon" src="/static/record.png" alt="Record" style="width:100%; height:auto;">
                     </button>
@@ -65,8 +58,11 @@
     </div>
     <!-- Back Button -->
     <div class="d-flex justify-content-center mb-3" style="position: fixed; bottom: 0; width: 100%;">
-        <a href="javascript:history.back()" class="btn btn-secondary">
+        <!-- <a href="javascript:history.back()" class="btn btn-secondary">
             <i class="bi bi-arrow-left"></i> Back
+        </a> -->
+        <a href="javascript:history.back()">
+            <img src="{{ url_for('static', filename='back_button.png') }}" alt="Back" style="width:50px; height:auto;">
         </a>
     </div>
     <script>
@@ -112,18 +108,6 @@
                     });
                 };
             });
-
-            // // Helper function to handle the start of the recording
-            // function startRecording() {
-            //     recordButton[0].innerHTML = "Recording...";
-            //     chunks = [];
-            //     mediaRecorder.start();
-            // }
-
-            // // Helper function to handle the end of the recording
-            // function stopRecording() {
-            //     mediaRecorder.stop();
-            // }
 
             // Helper function to handle the start of the recording
             function startRecording() {
