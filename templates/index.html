@@ -31,6 +31,22 @@
         .response {
             margin-bottom: 40px;
         }
+
+        /* ... your existing CSS ... */
+        .fixed-character-img {
+            position: fixed;
+            top: 300px;
+            /* Adjust this value to move the image down */
+            left: 50%;
+            /* Center the image horizontally */
+            transform: translateX(-50%);
+            /* Required for centering */
+        }
+
+        .container {
+            margin-top: 300px;
+            /* Adjust this based on the size of the image and desired spacing */
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
@@ -48,6 +64,10 @@
                         style="content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 0; border: 20px solid transparent; border-top-color: #f9f9f9; border-bottom: 0; border-left: 0; margin-left: -10px; margin-bottom: -20px;">
                     </div>
                 </div>
+
+                <!-- <img id="character-img" class="mb-3"
+                    src="{{ url_for('static', filename=session['selected_character'] | default('sonic', true) + '.png') }}"
+                    alt="" style="height:250px"> -->
 
                 <img id="character-img" class="mb-3"
                     src="{{ url_for('static', filename=session['selected_character'] | default('sonic', true) + '.png') }}"
