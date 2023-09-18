@@ -35,10 +35,10 @@
 
 <body>
 
-    <!-- <audio id="background-music" loop autoplay>
+    <audio id="background-music" loop autoplay>
         <source src="{{ url_for('static', filename='select_character.mp3') }}" type="audio/mpeg">
         Your browser does not support the audio element.
-    </audio> -->
+    </audio>
 
     <div class="container mt-5 text-center">
         <!-- <h1 class="mb-5">Select your character</h1> -->
@@ -120,6 +120,12 @@
                 window.location.href = '/';
             });
         }
+
+        // New code to set the volume
+    window.addEventListener("DOMContentLoaded", function() {
+        const audioElement = document.getElementById("background-music");
+        audioElement.volume = 0.03; // Set volume to 50%
+    });
     </script>
 
 </body>
