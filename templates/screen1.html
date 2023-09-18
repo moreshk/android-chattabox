@@ -23,11 +23,21 @@
             left: 50%;
             transform: translate(-50%, -50%);
             cursor: pointer;
+            max-width: 50%;
+        }
+
+        .banner-img {
+            height: auto;
+            max-width: 90%;
+            margin: 0 auto;
         }
     </style>
 </head>
 
 <body>
+    <div class="col-12 mb-5 text-center">
+        <img src="/static/chattabox.png" class="banner-img" alt="Chattabox">
+    </div>
     <img class="start-button" src="/static/start_button.png" alt="Start"
         onclick="window.location.href='/select-character'">
 </body>
