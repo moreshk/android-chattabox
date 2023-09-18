@@ -66,7 +66,7 @@ body {
   
 #character-img {
     margin-bottom: 0px; /* Adjust this value to reduce the space below the image */
-    height: 400px; /* Adjust this value to the desired size */
+    height: 300px; /* Adjust this value to the desired size */
 }
 
 #record-button {
