@@ -17,7 +17,8 @@
 
 <body>
     <audio id="background-music" loop autoplay>
-        <source src="{{ url_for('static', filename='select_character.mp3') }}" type="audio/mpeg">
+        <!-- <source src="{{ url_for('static', filename='select_character.mp3') }}" type="audio/mpeg"> -->
+        <source src="{{ url_for('static', filename=selected_character + '.mp3') }}" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     <!-- Back Button -->
@@ -75,7 +76,7 @@
 
     <script>
         $(document).ready(() => {
-            document.getElementById('background-music').volume = 0.01;
+            document.getElementById('background-music').volume = 0.03;
             const recordButton = $('#record-button');
             const transcriptionBox = $('#transcription-box');
             const audioElement = $('#audio-element')[0];
