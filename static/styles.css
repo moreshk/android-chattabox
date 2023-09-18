@@ -82,10 +82,11 @@ body {
 
 #character-long-name {
     margin-top: 40px;  /* Increase this based on how far down you want to push the character name */
+    display: none;
 }
 
 #chat-bubble {
-    margin-top: 60px;  /* Increase this based on how far down you want to push the chat bubble */
+    margin-top: 90px;  /* Increase this based on how far down you want to push the chat bubble */
     margin-bottom: 10px;
     background-color: rgba(249, 249, 249, 0.5);
 }
