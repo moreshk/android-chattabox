@@ -15,15 +15,20 @@
 
         body {
             background-image: url("/static/bg-select-character.png");
-            background-size: auto;
             background-repeat: repeat-y;
             background-attachment: fixed;
             background-position: center top;
+
+
+            /* Adjust this according to your preference */
+            background-size: auto 100%;
+            background-repeat: no-repeat;
         }
 
         .banner-img {
-            width: 70%;
             height: auto;
+            max-width: 90%;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -39,8 +44,9 @@
         <!-- <h1 class="mb-5">Select your character</h1> -->
         <div class="row justify-content-center">
             <div class="col-12 mb-5 text-center">
-
                 <img src="/static/chattabox.png" class="banner-img" alt="Chattabox">
+            </div>
+            <div class="col-12 mb-5 text-center">
                 <img src="/static/choose-buddy.png" class="banner-img" alt="Choose Buddy">
             </div>
             <div class="col-12 mb-5 text-center">
