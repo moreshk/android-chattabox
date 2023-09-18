@@ -165,9 +165,20 @@ def clean_output_dir(directory: str):
 
 from flask import session, redirect, url_for
 
-# app.py
+
+@app.route('/screen1')
+def screen1():
+    session['seen_screen1'] = True
+    return render_template('screen1.html')
+
+
 @app.route('/')
 def index():
+    print(f"Seen screen1: {session.get('seen_screen1', False)}")  # Debugging line
+    print(f"Selected character: {session.get('selected_character', None)}")  # Debugging line
+
+    if not session.get('seen_screen1', False):
+        return redirect(url_for('screen1'))
     selected_character = session.get('selected_character', None)
     if selected_character is None:
         return redirect(url_for('select_character'))
@@ -175,14 +186,9 @@ def index():
 
 @app.route('/select-character')
 def select_character():
-    """Render the character selection page."""
+    # session['seen_screen1'] = False  # Optional: Reset the session variable
     return render_template('select_character.html')
 
-# @app.route('/set-character', methods=['POST'])
-# def set_character():
-#     selected_character = request.form['character_name']
-#     session['selected_character'] = selected_character
-#     return redirect(url_for('index'))
 
 @app.route('/set-character', methods=['POST'])
 def set_character():
@@ -199,10 +205,11 @@ def set_character():
         'bookworm': 'Bookworm'
     }
 
-
+    print(f"Setting character to: {character_name}")  # Debugging line
     session['selected_character'] = character_name
     session['selected_character_long'] = character_long_names.get(character_name, character_name)
     session['selected_voice_id'] = voice_id
+    session['seen_screen1'] = True  # Reset the session variable here
     return jsonify(success=True)
 
 
