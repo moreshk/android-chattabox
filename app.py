@@ -134,12 +134,6 @@ def generate_audio(text: str, output_path: str = "") -> str:
     return output_path
 
 
-# @app.route('/')
-# def index():
-#     """Render the index page."""
-#     return render_template('index.html', voice=ELEVENLABS_VOICE_NAME)
-
-
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
     """Transcribe the given audio to text using Whisper."""
