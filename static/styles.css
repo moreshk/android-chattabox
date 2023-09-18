@@ -84,3 +84,8 @@ body {
     margin-bottom: 10px;
     background-color: rgba(249, 249, 249, 0.5);
 }
+
+#status-text {
+    height: 20px;  /* Adjust this value based on the size of the text */
+    visibility: hidden;  /* Initially set to hidden */
+}

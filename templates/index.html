@@ -235,6 +235,23 @@
         });
     </script>
 
+    <script>
+        const statusText = $('#status-text');
+
+        const disableButton = (btn) => {
+            btn.addClass("loading").prop("disabled", true);
+            statusText.text('Transcribing...');
+            statusText.css('visibility', 'visible');  // Make it visible
+        }
+
+        const enableButton = (btn) => {
+            btn.removeClass("loading").prop("disabled", false);
+            statusText.text('');
+            statusText.css('visibility', 'hidden');  // Hide it
+        }
+
+    </script>
+
 </body>
 
 </html>
