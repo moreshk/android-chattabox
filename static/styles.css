@@ -52,12 +52,6 @@
     padding-top: 20px; /* Add this property to reduce the space above the image */
 }
 
-#chat-bubble {
-    margin-top: 30px;
-    margin-bottom: 10px; /* Adjust the value to increase or decrease the vertical spacing */
-    background-color: rgba(249, 249, 249, 0.5); /* You can adjust the last number to change the transparency level */
-}
-
 body {
     background-image: url('bg-pirate-boy.png'); /* Replace with the actual path to your image */
     background-attachment: fixed;
@@ -86,7 +80,7 @@ body {
 }
 
 #chat-bubble {
-    margin-top: 90px;  /* Increase this based on how far down you want to push the chat bubble */
+    margin-top: 190px;  /* Increase this based on how far down you want to push the chat bubble */
     margin-bottom: 10px;
     background-color: rgba(249, 249, 249, 0.5);
 }
