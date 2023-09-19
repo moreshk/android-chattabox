@@ -89,3 +89,30 @@ body {
     height: 20px;  /* Adjust this value based on the size of the text */
     visibility: hidden;  /* Initially set to hidden */
 }
+
+
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+    #character-img {
+        height: 250px; /* Adjust to your preference */
+    }
+
+    .large-round-button {
+        width: 100px;  /* Adjust to your preference */
+        height: 100px; /* Adjust to your preference */
+        line-height: 50px; /* Adjust to your preference */
+    }
+}
+
+/* Media query for screens smaller than 576px */
+@media (max-width: 576px) {
+    #character-img {
+        height: 200px; /* Adjust to your preference */
+    }
+
+    .large-round-button {
+        width: 80px;  /* Adjust to your preference */
+        height: 80px; /* Adjust to your preference */
+        line-height: 40px; /* Adjust to your preference */
+    }
+}
