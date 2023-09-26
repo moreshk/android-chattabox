@@ -23,9 +23,6 @@
     </audio>
     <!-- Back Button -->
     <div class="d-flex justify-content-center mb-3" style="position: fixed; top: 10px; width: 100%;">
-        <!-- <a href="javascript:history.back()" id="back-button">
-            <img src="{{ url_for('static', filename='back_button.png') }}" alt="Back" style="width:50px; height:auto;">
-        </a> -->
         <a href="{{ url_for('select_character') }}" id="back-button">
             <img src="{{ url_for('static', filename='back_button.png') }}" alt="Back" style="width:50px; height:auto;">
         </a>
@@ -48,9 +45,6 @@
                     <img id="character-img" class="mb-3"
                         src="{{ url_for('static', filename=session['selected_character'] | default('sonic', true) + '.png') }}"
                         alt="">
-
-                    <!-- <h1 class="mb-4">Sonic the Hedgehog</h1> -->
-
 
                     <form>
                         <div class="form-group mb-3">
